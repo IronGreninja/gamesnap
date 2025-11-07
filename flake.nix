@@ -36,11 +36,14 @@
 
             delve
 
-            # gotools
-            # gomodifytags
+            gotools
+            go-tools
+            gomodifytags
             # golangci-lint
             gopls
-            # gotests
+            gotests
+
+            goreleaser
           ];
 
           env = {
