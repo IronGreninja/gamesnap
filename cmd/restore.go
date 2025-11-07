@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"encoding/json"
 	"os"
 	"path/filepath"
 
@@ -20,11 +19,7 @@ func restoreSnapshot(cmd *cobra.Command, args []string) {
 	bkupPath, err := internal.RealPath(args[0])
 	CheckErr(err)
 
-	jsonData, err := os.ReadFile(filepath.Join(bkupPath, "info.json"))
-	CheckErr(err)
-
-	brCfg := internal.BRConfig{}
-	json.Unmarshal(jsonData, &brCfg)
+	brCfg := internal.GetBRConfig(filepath.Join(bkupPath, "info.toml"))
 
 	for pathSrc, pType := range brCfg.Paths {
 		if pType.Type == "file" {

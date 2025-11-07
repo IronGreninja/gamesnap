@@ -1,8 +1,6 @@
 package main
 
-import (
-	"github.com/IronGreninja/gamesnap/cmd"
-)
+import "github.com/IronGreninja/gamesnap/cmd"
 
 func main() {
 	cmd.Execute()

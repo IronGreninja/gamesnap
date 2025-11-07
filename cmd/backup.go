@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
 	"maps"
 	"os"
@@ -13,7 +12,6 @@ import (
 
 	"github.com/IronGreninja/gamesnap/internal"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var snapCmd = &cobra.Command{
@@ -34,16 +32,8 @@ var snapCmd = &cobra.Command{
 }
 
 func saveBRConfig(brCfg *internal.BRConfig, path string) {
-	path = filepath.Join(path, "info.json")
-	json, err := json.MarshalIndent(brCfg, "", "\t")
-	CheckErr(err)
-
-	f, err := os.Create(path)
-	CheckErr(err)
-	defer f.Close()
-
-	_, err = f.Write(json)
-	CheckErr(err)
+	path = filepath.Join(path, "info.toml")
+	internal.WriteBRConfig(path, brCfg)
 }
 
 func backupSingleGame(name string, paths []internal.TPath_t, bkupPath string, wg *sync.WaitGroup) {
@@ -90,8 +80,9 @@ func backupSingleGame(name string, paths []internal.TPath_t, bkupPath string, wg
 }
 
 func backupGames(cmd *cobra.Command, args []string) {
-	CheckErr(os.Chdir(filepath.Dir(viper.ConfigFileUsed())))
 	cfg := internal.GetConfig()
+	fmt.Println("using config:", internal.CfgFile)
+	CheckErr(os.Chdir(filepath.Dir(internal.CfgFile)))
 	vars := cfg.Variables
 	bkupTime := time.Now().Format("2006-01-02_15.04.05") // windows does not allow ':' in pathnames
 
