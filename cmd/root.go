@@ -13,6 +13,9 @@ var rootCmd = &cobra.Command{
 	Use:     internal.APPNAME,
 	Short:   "A dead simple cli tool for game save snapshots",
 	Version: internal.VERSION,
+	CompletionOptions: cobra.CompletionOptions{
+		DisableDefaultCmd: true,
+	},
 }
 
 var cfgFile string
