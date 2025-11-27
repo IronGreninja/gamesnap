@@ -61,8 +61,8 @@ gamesnap snap Nightreign Expedition33   # only specified
 Snapshots are restored by pointing to a particular snapshot directory. Here `dir` refers to `destination`, as specified in config
 
 ```sh
-gamesnap dir/Expedition33/2025-11-07_23.25.29
-gamesnap dir/Expedition33/latest    # points to the latest snapshot (except windows)
+gamesnap resnap dir/Expedition33/2025-11-07_23.25.29
+gamesnap resnap dir/Expedition33/latest    # points to the latest snapshot (except windows)
 ```
 
 #### Snapshot Architecture
@@ -72,3 +72,7 @@ Inside each are directories in the form `path*`, and a file `info.toml`
 `info.toml` maps `path*`s to `name, type` pairs.
 If `type=dir`, the contents of `path*` is a tree of files, and should be restored inside `name`.
 If `type=file`, the contents of `path*` is a single file, and should be restored as `name`.
+
+## Credits
+
+[Game-Save-Manager](https://github.com/dyang886/Game-Save-Manager) - Automatically detects save locations, gui-only, windows-only.
